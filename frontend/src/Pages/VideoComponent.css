@@ -1,0 +1,217 @@
+.videoMeetPage {
+    min-height: 100vh;
+    background-image: linear-gradient(rgba(8, 15, 35, 0.72), rgba(8, 15, 35, 0.72)), url('/background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.lobbyContainer {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    color: #ffffff;
+    padding: 1rem;
+}
+
+.lobbyContainer h2 {
+    color: #ff9839;
+    font-size: 2rem;
+}
+
+.lobbyActions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.lobbyPreview video {
+    width: min(80vw, 420px);
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.22);
+}
+
+.meetVideoContainer {
+    position: relative;
+    min-height: 100vh;
+    padding: 5.2rem 1rem 7rem;
+}
+
+.meetTopBar {
+    position: absolute;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    color: #ff9839;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+}
+
+.meetTopBar h2 {
+    font-size: 1.7rem;
+    letter-spacing: 0.05rem;
+}
+
+.meetUserVideo {
+    position: fixed;
+    bottom: 6.5rem;
+    left: 1rem;
+    width: 220px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    background: #050814;
+    z-index: 4;
+}
+
+.buttonContainers {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 1rem;
+    width: auto;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0.45rem 0.9rem;
+    border-radius: 999px;
+    background: rgba(10, 20, 48, 0.75);
+    z-index: 6;
+}
+
+.buttonContainers svg {
+    font-size: 2rem;
+}
+
+.controlBtn {
+    color: #ffffff !important;
+}
+
+.endCallBtn {
+    color: #ff5757 !important;
+}
+
+.conferenceView { 
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 0.9rem;
+    padding: 0.5rem;
+    padding-right: min(32vw, 390px);
+}
+
+.remoteVideoCard {
+    background: rgba(8, 14, 32, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+}
+
+.conferenceView  video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 10px;
+}
+
+.chatRoom {
+    position: absolute;
+    top: 5rem;
+    height: calc(100vh - 12rem);
+    right: 0;
+    background: #ffffff;
+    border-radius: 12px 0 0 12px;
+    width: min(30vw, 360px);
+    padding: 14px 14px 10px;
+    z-index: 5;
+    box-shadow: -8px 10px 28px rgba(0, 0, 0, 0.28);
+}
+
+.chatContainer {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.chatContainer h1 {
+    font-size: 1.2rem;
+    margin-bottom: 0.7rem;
+}
+
+.chattingDisplay {
+    flex: 1;
+    max-height: calc(100% - 70px);
+    overflow-y: auto;
+    padding-right: 4px;
+    padding-bottom: 8px;
+}
+
+.chattingArea {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 0.5rem;
+}
+
+.chattingArea .MuiTextField-root {
+    flex: 1;
+}
+
+.chatMessageItem {
+    background: #f3f5fb;
+    border: 1px solid #e4e8f5;
+    border-radius: 10px;
+    padding: 8px 10px;
+    margin-bottom: 10px;
+}
+
+.chatSender {
+    font-weight: 700;
+    color: #2f3a57;
+    margin-bottom: 2px;
+}
+
+.chatText {
+    color: #1f2430;
+    word-break: break-word;
+}
+
+.buttonContainers .MuiBadge-badge {
+    font-weight: 700;
+}
+
+@media (max-width: 900px) {
+    .meetTopBar h2 {
+        font-size: 1.3rem;
+    }
+
+    .chatRoom {
+        width: min(88vw, 360px);
+    }
+
+    .conferenceView {
+        padding-right: 0.5rem;
+        margin-bottom: 12rem;
+    }
+
+    .meetUserVideo {
+        width: 160px;
+        bottom: 6.2rem;
+    }
+
+    .lobbyActions {
+        flex-direction: column;
+        width: 100%;
+        max-width: 360px;
+    }
+}
