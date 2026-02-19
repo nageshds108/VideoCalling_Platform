@@ -27,8 +27,9 @@ function Home() {
     }, []);
 
     const handleJoinVideoCall = () => {
-        if (!meetingCode?.trim()) return;
-        navigate(`/${meetingCode}`);
+        const normalizedMeetingCode = meetingCode?.trim().toLowerCase();
+        if (!normalizedMeetingCode) return;
+        navigate(`/${encodeURIComponent(normalizedMeetingCode)}`);
     };
 
     return (
