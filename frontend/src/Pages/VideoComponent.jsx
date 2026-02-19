@@ -24,9 +24,35 @@ const peerConfigConnections = {
     ]
 }
 
+const normalizeRoomId = (input) => {
+    let value = (input || "").trim();
+    if (!value) return "";
+
+    try {
+        value = decodeURIComponent(value);
+    } catch (err) {
+        // Keep raw input if decode fails.
+    }
+
+    if (/^https?:\/\//i.test(value)) {
+        try {
+            const parsed = new URL(value);
+            const hashRoute = (parsed.hash || "").replace(/^#\/?/, "").trim();
+            const pathRoute = (parsed.pathname || "").replace(/^\/+|\/+$/g, "").trim();
+            value = hashRoute || pathRoute || value;
+        } catch (err) {
+            // Ignore parse failure and keep original value.
+        }
+    }
+
+    value = value.replace(/^#\/?/, "").replace(/^\/+|\/+$/g, "").trim();
+    const parts = value.split("/").filter(Boolean);
+    return (parts[parts.length - 1] || "").trim().toLowerCase();
+};
+
 export default function VideoMeetComponent() {
     const { url } = useParams();
-    const roomId = useMemo(() => decodeURIComponent((url || "").trim()).toLowerCase(), [url]);
+    const roomId = useMemo(() => normalizeRoomId(url), [url]);
 
     var socketRef = useRef();
     let socketIdRef = useRef();
@@ -275,6 +301,7 @@ export default function VideoMeetComponent() {
 
 
     let connectToSocketServer = () => {
+        if (!roomId) return;
         socketRef.current = io.connect(server_url, { secure: false })
 
         socketRef.current.on('signal', gotMessageFromServer)

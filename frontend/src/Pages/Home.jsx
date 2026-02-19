@@ -6,6 +6,33 @@ import withAuth from "../Utils/Auth";
 import { AuthContext } from "../contexts/contexts.jsx";
 import "../App.css";
 
+const extractMeetingCode = (input) => {
+    let value = (input || "").trim();
+    if (!value) return "";
+
+    try {
+        value = decodeURIComponent(value);
+    } catch (err) {
+        // Keep raw input if decode fails.
+    }
+
+    if (/^https?:\/\//i.test(value)) {
+        try {
+            const parsed = new URL(value);
+            const hashRoute = (parsed.hash || "").replace(/^#\/?/, "").trim();
+            const pathRoute = (parsed.pathname || "").replace(/^\/+|\/+$/g, "").trim();
+            value = hashRoute || pathRoute || value;
+        } catch (err) {
+            // Ignore parse failure and keep original value.
+        }
+    }
+
+    value = value.replace(/^#\/?/, "").replace(/^\/+|\/+$/g, "").trim();
+    const parts = value.split("/").filter(Boolean);
+    const finalCode = (parts[parts.length - 1] || "").trim().toLowerCase();
+    return finalCode;
+};
+
 function Home() {
     const [meetingCode, setMeetingCode] = useState("");
     const [profileLabel, setProfileLabel] = useState("");
@@ -27,7 +54,7 @@ function Home() {
     }, []);
 
     const handleJoinVideoCall = () => {
-        const normalizedMeetingCode = meetingCode?.trim().toLowerCase();
+        const normalizedMeetingCode = extractMeetingCode(meetingCode);
         if (!normalizedMeetingCode) return;
         navigate(`/${encodeURIComponent(normalizedMeetingCode)}`);
     };
